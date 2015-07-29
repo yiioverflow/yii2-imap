@@ -26,20 +26,20 @@ $mailbox->connect('{imap.gmail.com:993/imap/ssl}INBOX', 'yiioverflow@gmail.com',
 To get all mails
 -----
 
-$mailsIds = $mailbox->searchMailBox('ALL');
-        
-  if(!$mailsIds) {
-      return [];
-  }
-        
-$mailId = reset($mailsIds);
+$mailIds = $mailbox->searchMailBox('ALL');
 
-foreach($mailsIds as $mailId)
+  if(!$mailIds) {
+    return [];
+  }
+ 
+$mailId = reset($mailIds);
+
+foreach($mailIds as $mailId)
 {
     $mail = $mailbox->getMail($mailId); // To get the each mails
     $attachment = $mail->getAttachments(); // To get attachments
-    
     $mailbox->deleteMail($mailId); //To mark mail for delete
 }
+
 $mailbox->expungeDeletedMails(); // To delete marked mails
 

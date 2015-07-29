@@ -11,11 +11,17 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "*"
+        "roopz/yii2-imap": "dev-master"
     },
     "autoload": {
         "psr-4": {
             "roopz\\Imap\\": ""
         }
-    }
+    },
+    "repositories":[
+        {
+            "type": "git",
+            "url": "https://github.com/yiioverflow/yii2-imap.git"
+        }
+    ]
 }

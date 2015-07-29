@@ -1,31 +1,45 @@
-Roopz Imap
+yii2 Imap
 ==========
 Read mails from Imap mail server using yii2.
 
-Installation
+Installation by composer
 ------------
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+{
+    "require": {
+       "roopz/yii2-imap": "*"
+    }
+}
 
-Either run
+Or
 
-```
-php composer.phar require --prefer-dist roopz/yii2-imap "*"
-```
-
-or add
-
-```
-"roopz/yii2-imap": "*"
-```
-
-to the require section of your `composer.json` file.
-
+$ composer require "roopz/yii2-imap": "*"
 
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+use roopz/Imap;
 
-```php
-<?= \roopz\Imap\AutoloadExample::widget(); ?>```
+$mailbox = new Imap;
+$mailbox->connect('{imap.gmail.com:993/imap/ssl}INBOX', 'yiioverflow@gmail.com', 'password', __DIR__);
+
+To get all mails
+-----
+
+$mailsIds = $mailbox->searchMailBox('ALL');
+        
+  if(!$mailsIds) {
+      return [];
+  }
+        
+$mailId = reset($mailsIds);
+
+foreach($mailsIds as $mailId)
+{
+    $mail = $mailbox->getMail($mailId); // To get the each mails
+    $attachment = $mail->getAttachments(); // To get attachments
+    
+    $mailbox->deleteMail($mailId); //To mark mail for delete
+}
+$mailbox->expungeDeletedMails(); // To delete marked mails
+

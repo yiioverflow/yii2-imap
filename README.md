@@ -4,7 +4,7 @@ Read mails from Imap mail server using yii2.
 
 Installation by composer
 ------------
-
+```composer
 {
     "require": {
        "roopz/yii2-imap": "*"
@@ -14,18 +14,18 @@ Installation by composer
 Or
 
 $ composer require "roopz/yii2-imap": "*"
-
+```
 Usage
 -----
-
+```php
 use roopz/Imap;
 
 $mailbox = new Imap;
 $mailbox->connect('{imap.gmail.com:993/imap/ssl}INBOX', 'yiioverflow@gmail.com', 'password', __DIR__);
-
+```
 To get all mails
------
-
+----------------
+```php
 $mailIds = $mailbox->searchMailBox('ALL');
 
   if(!$mailIds) {
@@ -42,4 +42,4 @@ foreach($mailIds as $mailId)
 }
 
 $mailbox->expungeDeletedMails(); // To delete marked mails
-
+```

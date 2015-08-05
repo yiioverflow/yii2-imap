@@ -1,13 +1,15 @@
 {
     "name": "roopz/yii2-imap",
-    "description": "Read mails from Imap mail server using yii2.",
+    "description": "yii2 extension to read and process mails from IMAP and PHP",
+    "keywords": ["yii2", "extension", "widget", "imap", "cron", "mail", "inbox"],
+    "homepage": "https://github.com/yiioverflow/yii2-imap.git",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension","imap","mail","roopz","yiioverflow"],
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Roopan Valiya veetil",
-            "email": "yiioverflow@gmail.com"
+            "name": "Roopan Valiya Veetil",
+            "email": "yiioverflow@gmail.com",
+            "homepage": "http://www.yiioverflow.com/"
         }
     ],
     "require": {
@@ -17,11 +19,5 @@
         "psr-4": {
             "roopz\\Imap\\": ""
         }
-    },
-    "repositories":[
-        {
-            "type": "git",
-            "url": "https://github.com/yiioverflow/yii2-imap.git"
-        }
-    ]
+    }
 }

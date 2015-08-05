@@ -13,7 +13,7 @@ Installation by composer
 
 Or
 
-$ composer require "roopz/yii2-imap": "*"
+$ composer require "roopz/yii2-imap" "@dev"
 ```
 Usage
 -----

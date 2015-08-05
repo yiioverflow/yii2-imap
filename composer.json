@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "roopz/yii2-imap": "dev-master"
+        "roopz/yii2-imap": "dev-master@dev"
     },
     "autoload": {
         "psr-4": {

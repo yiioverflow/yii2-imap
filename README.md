@@ -22,8 +22,13 @@ use roopz/Imap;
 
 $mailbox = new Imap;
 
-//4th Param _DIR_ is the location to save attached files Eg: /path/to/application/mail/uploads.
-$mailbox->connect('{imap.gmail.com:993/imap/ssl}INBOX', 'yiioverflow@gmail.com', 'password', __DIR__);
+//4th Param _DIR_ is the location to save attached files 
+//Eg: /path/to/application/mail/uploads.
+$mailbox->connect(
+                    '{imap.gmail.com:993/imap/ssl}INBOX', 
+                    'yiioverflow@gmail.com', 'password',
+                    __DIR__
+                );
 ```
 To get all mails and its index
 ----------------

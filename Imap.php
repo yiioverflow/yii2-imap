@@ -12,7 +12,7 @@ namespace roopz\Imap;
  * 
  */
 
-class Imap extends roopz\Imap\Mailbox
+class Imap extends Mailbox
 {
     public function connect($imapPath, $login, $password, $attachmentsDir = null, $serverEncoding = 'UTF-8')
     {

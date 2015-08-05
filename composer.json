@@ -13,7 +13,8 @@
         }
     ],
     "require": {
-        "roopz/yii2-imap": "dev-master"
+        "roopz/yii2-imap": "dev-master",
+        "minimum-stability": "dev"
     },
     "autoload": {
         "psr-4": {

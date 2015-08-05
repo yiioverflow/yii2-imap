@@ -14,7 +14,8 @@
     ],
     "require": {
         "roopz/yii2-imap": "dev-master",
-        "minimum-stability": "dev"
+        "minimum-stability": "dev",
+        "prefer-stable": true
     },
     "autoload": {
         "psr-4": {

@@ -1,6 +1,7 @@
 <?php
 
-namespace roopz\Imap;
+namespace roopz\imap;
+use yii\base\Component;
 use stdClass;
 
 /**
@@ -8,7 +9,7 @@ use stdClass;
    *All rights reserved.
 */
 
-class Mailbox {
+class Mailbox extends component{
 
 	protected $imapPath;
 	protected $imapLogin;

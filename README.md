@@ -18,17 +18,27 @@ $ composer require roopz/yii2-imap "dev-master"
 Usage
 -----
 ```php
-use roopz/Imap;
 
-$mailbox = new Imap;
+//Add in your config component
+
+'components' => [
+      ...
+      'imap' => [
+         'class' => 'roopz\imap\Imap',
+         'connection' => [
+              'imapPath' => '{imap.gmail.com:993/imap/ssl}INBOX',
+              'imapLogin' => 'username',
+              'imapPassword' => 'password',
+              'serverEncoding'=>'encoding', // utf-8 default.
+              'attachmentsDir'=>'/'
+        ],
+    ],
+    ...
+ ],
 
 //4th Param _DIR_ is the location to save attached files 
 //Eg: /path/to/application/mail/uploads.
-$mailbox->connect(
-                    '{imap.gmail.com:993/imap/ssl}INBOX', 
-                    'yiioverflow@gmail.com', 'password',
-                    __DIR__
-                );
+$mailbox = yii::$app->imap->connection;
 ```
 To get all mails and its index
 ----------------

@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "roopz\\Imap\\": ""
+            "roopz\\imap\\": "src/"
         }
     }
 }

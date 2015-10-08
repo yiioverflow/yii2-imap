@@ -21,3 +21,6 @@ $ composer require roopz/yii2-imap "dev-master"
 
 # Contribute
 Feel free to contribute. If you have ideas for examples, add them to the repo and send in a pull request.
+
+# Apreciate
+Dont forgett o Leave me a "star" if you like it. Enjoy coding!

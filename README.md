@@ -17,7 +17,7 @@ $ composer require roopz/yii2-imap "dev-master"
 ```
 
 # Documentation
-[Documentation, Usage and Demo](http://yiioverflow.com/article/yii2-imap-library-for-yii-framework-applications)
+[Documentation, Usage and Demo](http://yiioverflow.com/yii2-imap)
 
 # Contribute
 Feel free to contribute. If you have ideas for examples, add them to the repo and send in a pull request.

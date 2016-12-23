@@ -9,7 +9,8 @@ use stdClass;
    *All rights reserved.
 */
 
-class Mailbox extends component{
+class Mailbox extends Component
+{
 
 	protected $imapPath;
 	protected $imapLogin;
@@ -395,14 +396,19 @@ class Mailbox extends component{
      * @return IncomingMail
      */
 	public function getMail($mailId, $markAsSeen = true) {
+
 		$head = imap_rfc822_parse_headers(imap_fetchheader($this->getImapStream(), $mailId, FT_UID));
 
 		$mail = new IncomingMail();
 		$mail->id = $mailId;
+		$mail->msgno = imap_msgno($this->getImapStream(), $mailId);
 		$mail->date = date('Y-m-d H:i:s', isset($head->date) ? strtotime(preg_replace('/\(.*?\)/', '', $head->date)) : time());
 		$mail->subject = isset($head->subject) ? $this->decodeMimeStr($head->subject, $this->serverEncoding) : null;
 		$mail->fromName = isset($head->from[0]->personal) ? $this->decodeMimeStr($head->from[0]->personal, $this->serverEncoding) : null;
 		$mail->fromAddress = strtolower($head->from[0]->mailbox . '@' . $head->from[0]->host);
+		$mail->inReplyTo = strtolower($head->in_reply_to);
+		$mail->references = strtolower($head->references);
+		$mail->messageID = strtolower($head->message_id);
 
 		if(isset($head->to)) {
 			$toStrings = array();
@@ -482,7 +488,7 @@ class Mailbox extends component{
 		}
 
 		// attachments
-		$attachmentId = $partStructure->ifid
+		$attachmentId = ($partStructure->ifid && in_array(strtolower($partStructure->disposition), ['attachment', 'inline']))
 			? trim($partStructure->id, " <>")
 			: (isset($params['filename']) || isset($params['name']) ? mt_rand() . mt_rand() : null);
 
@@ -498,6 +504,7 @@ class Mailbox extends component{
 			$attachment = new IncomingMailAttachment();
 			$attachment->id = $attachmentId;
 			$attachment->name = $fileName;
+			$attachment->disposition = strtolower($partStructure->disposition);
 			if($this->attachmentsDir) {
 				$replace = array(
 					'/\s/' => '_',
@@ -505,9 +512,9 @@ class Mailbox extends component{
 					'/_+/' => '_',
 					'/(^_)|(_$)/' => '',
 				);
-				$fileSysName = preg_replace('~[\\\\/]~', '', $mail->id . '_' . $attachmentId . '_' . preg_replace(array_keys($replace), $replace, $fileName));
-				$attachment->filePath = $this->attachmentsDir . DIRECTORY_SEPARATOR . $fileSysName;
-				file_put_contents($attachment->filePath, $data);
+				$attachment->filename = preg_replace('~[\\\\/]~', '', $mail->id . '_' . $attachmentId . '_' . preg_replace(array_keys($replace), $replace, $fileName));
+				$attachment->filepath = $this->attachmentsDir . DIRECTORY_SEPARATOR . $attachment->filename;
+				file_put_contents($attachment->filepath, $data);
 			}
 			$mail->addAttachment($attachment);
 		}

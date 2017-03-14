@@ -4,15 +4,15 @@ namespace roopz\imap;
 
 use Yii;
 use roopz\imap\Mailbox;
+use yii\base\Exception;
+use yii\base\InvalidConfigException;
 
-/* 
- * 
+/**
  * Copyright (c) 2015 by Roopan Valiya Veetil <yiioverflow@gmail.com>.
  * All rights reserved.
  * Date : 29-07-2015
  * Time : 5:20 PM
  * Class can be used for connecting and extracting Email messages.
- * 
  */
 
 /**
@@ -39,8 +39,7 @@ use roopz\imap\Mailbox;
 
 class Imap extends Mailbox
 {
-    
-    private $_connection = [];    
+    private $_connection = [];
 
     /**
      * @param array
@@ -59,12 +58,16 @@ class Imap extends Mailbox
      */
     public function getConnection()
     {
-        $this->_connection = $this->createConnection($this->_connection );
+        if ($this->_connection instanceof Imap) {
+            return $this->_connection;
+        }
+        $this->_connection = $this->createConnection();
         return $this->_connection;
-    }  
-    
+    }
+
     /**
-     * @return array
+     * @return $this
+     * @throws Exception
      */
     public function createConnection()
     {
@@ -73,12 +76,12 @@ class Imap extends Mailbox
         $this->imapPassword = $this->_connection['imapPassword'];
         $this->serverEncoding = $this->_connection['serverEncoding'];
         $this->attachmentsDir = $this->_connection['attachmentsDir'];
-        if($this->attachmentsDir) {
-                if(!is_dir($this->attachmentsDir)) {
-                        throw new Exception('Directory "' . $this->attachmentsDir . '" not found');
-                }
-                $this->attachmentsDir = rtrim(realpath($this->attachmentsDir), '\\/');
+        if ($this->attachmentsDir) {
+            if (!is_dir($this->attachmentsDir)) {
+                throw new Exception('Directory "' . $this->attachmentsDir . '" not found');
+            }
+            $this->attachmentsDir = rtrim(realpath($this->attachmentsDir), '\\/');
         }
         return $this;
-    }     
+    }
 }

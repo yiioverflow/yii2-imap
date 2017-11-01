@@ -30,6 +30,7 @@ use yii\base\InvalidConfigException;
  *             'imapLogin' => 'username',
  *             'imapPassword' => 'password',
  *             'serverEncoding'=>'encoding' // utf-8 default.
+ *             'decodeMimeStr' => false // Return as is, default -> true
  *         ],
  *     ],
  *     ...
@@ -76,6 +77,8 @@ class Imap extends Mailbox
         $this->imapPassword = $this->_connection['imapPassword'];
         $this->serverEncoding = $this->_connection['serverEncoding'];
         $this->attachmentsDir = $this->_connection['attachmentsDir'];
+        $this->decodeMimeStr = $this->_connection['decodeMimeStr'];
+
         if ($this->attachmentsDir) {
             if (!is_dir($this->attachmentsDir)) {
                 throw new Exception('Directory "' . $this->attachmentsDir . '" not found');

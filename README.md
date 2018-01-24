@@ -19,6 +19,22 @@ $ composer require roopz/yii2-imap "dev-master"
 # Documentation
 [Documentation, Usage and Demo](http://blog.yiioverflow.com/yii2-imap)
 
+### Config example
+
+```php
+'imap' => [
+	'class' => '',
+	'connection' => [
+		'imapPath' => '',
+		'imapLogin' => '',
+		'imapPassword' => '',
+		'serverEncoding' => 'utf-8',
+		'attachmentsDir' => '/tmp',
+		'decodeMimeStr' => false
+	]
+]
+```
+
 # Donate
 [Send me a beer] (https://donorbox.org/yii2-imap)
 

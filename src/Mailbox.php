@@ -1,6 +1,7 @@
 <?php
 
 namespace roopz\imap;
+
 use yii\base\Component;
 use stdClass;
 
@@ -9,8 +10,8 @@ use stdClass;
    *All rights reserved.
 */
 
-class Mailbox extends component{
-
+class Mailbox extends component
+{
 	protected $imapPath;
 	protected $imapLogin;
 	protected $imapPassword;
@@ -19,6 +20,7 @@ class Mailbox extends component{
 	protected $imapParams = array();
 	protected $serverEncoding;
 	protected $attachmentsDir;
+	protected $decodeMimeStr = true;
 
 	/**
 	 * Set custom connection arguments of imap_open method. See http://php.net/imap_open
@@ -539,15 +541,27 @@ class Mailbox extends component{
 		}
 	}
 
-	protected function decodeMimeStr($string, $charset = 'utf-8') {
+	/**
+	 * @param $string
+	 * @param string $charset
+	 * @return string
+	 */
+	protected function decodeMimeStr($string, $charset = 'utf-8')
+	{
 		$newString = '';
 		$elements = imap_mime_header_decode($string);
-		for($i = 0; $i < count($elements); $i++) {
-			if($elements[$i]->charset == 'default') {
-				$elements[$i]->charset = 'iso-8859-1';
+
+		for ($i = 0; $i < count($elements); $i++) {
+			if ($this->decodeMimeStr) {
+				if ($elements[$i]->charset == 'default') {
+					$elements[$i]->charset = 'iso-8859-1';
+				}
+				$newString .= $this->convertStringEncoding($elements[$i]->text, $elements[$i]->charset, $charset);
+			} else {
+				$newString .= $elements[$i]->text;
 			}
-			$newString .= $this->convertStringEncoding($elements[$i]->text, $elements[$i]->charset, $charset);
 		}
+
 		return $newString;
 	}
 

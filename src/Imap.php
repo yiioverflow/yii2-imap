@@ -1,12 +1,4 @@
 <?php
-
-namespace roopz\imap;
-
-use Yii;
-use roopz\imap\Mailbox;
-use yii\base\Exception;
-use yii\base\InvalidConfigException;
-
 /**
  * Copyright (c) 2015 by Roopan Valiya Veetil <yiioverflow@gmail.com>.
  * All rights reserved.
@@ -15,8 +7,15 @@ use yii\base\InvalidConfigException;
  * Class can be used for connecting and extracting Email messages.
  */
 
+namespace roopz\imap;
+
+use roopz\imap\Mailbox;
+use yii\base\Exception;
+use yii\base\InvalidConfigException;
+
 /**
- * Imap Component
+ * Class Imap
+ * @package roopz\imap
  *
  * To use Imap, you should configure it in the application configuration like the following,
  *
@@ -36,8 +35,7 @@ use yii\base\InvalidConfigException;
  *     ...
  * ],
  * ~~~
-**/
-
+ */
 class Imap extends Mailbox
 {
     private $_connection = [];
@@ -63,6 +61,7 @@ class Imap extends Mailbox
             return $this->_connection;
         }
         $this->_connection = $this->createConnection();
+
         return $this->_connection;
     }
 
@@ -84,10 +83,11 @@ class Imap extends Mailbox
 
         if ($this->attachmentsDir) {
             if (!is_dir($this->attachmentsDir)) {
-                throw new Exception('Directory "' . $this->attachmentsDir . '" not found');
+                throw new Exception('Directory "'.$this->attachmentsDir.'" not found');
             }
             $this->attachmentsDir = rtrim(realpath($this->attachmentsDir), '\\/');
         }
+
         return $this;
     }
 }

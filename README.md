@@ -17,7 +17,7 @@ $ composer require roopz/yii2-imap "dev-master"
 ```
 
 # Documentation
-[Documentation, Usage and Demo](http://yiioverflow.com/yii2-imap/)
+[Documentation, Usage and Demo](https://yiioverflow.com/yii2-imap/)
 
 ### Config example
 

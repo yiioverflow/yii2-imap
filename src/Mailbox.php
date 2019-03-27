@@ -22,17 +22,17 @@ class Mailbox extends component
 	protected $attachmentsDir;
 	protected $decodeMimeStr = true;
 
-	/**
-	 * Set custom connection arguments of imap_open method. See http://php.net/imap_open
-	 * @param int $options
-	 * @param int $retriesNum
-	 * @param array $params
-	 */
-	public function setConnectionArgs($options = 0, $retriesNum = 0, array $params = null) {
-		$this->imapOptions = $options;
-		$this->imapRetriesNum = $retriesNum;
-		$this->imapParams = $params;
-	}
+    /**
+     * Set custom connection arguments of imap_open method. See http://php.net/imap_open
+     * @param int $options
+     * @param int $retriesNum
+     * @param array $params
+     */
+    public function setConnectionArgs($options = 0, $retriesNum = 0, array $params = []) {
+        $this->imapOptions = $options;
+        $this->imapRetriesNum = $retriesNum;
+        $this->imapParams = $params;
+    }
 
 	/**
 	 * Get IMAP mailbox connection stream

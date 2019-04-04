@@ -2,6 +2,7 @@
 
 namespace roopz\imap;
 
+use DateTime;
 use yii\base\Component;
 use stdClass;
 
@@ -410,7 +411,7 @@ class Mailbox extends component
 
 		$mail = new IncomingMail();
 		$mail->id = $mailId;
-		$mail->date = date('Y-m-d H:i:s', isset($head->date) ? strtotime(preg_replace('/\(.*?\)/', '', $head->date)) : time());
+        $mail->date = self::getDateTime($head->date);
 		$mail->subject = isset($head->subject) ? $this->decodeMimeStr($head->subject, $this->serverEncoding) : null;
 		$mail->fromName = isset($head->from[0]->personal) ? $this->decodeMimeStr($head->from[0]->personal, $this->serverEncoding) : null;
 		$mail->fromAddress = strtolower($head->from[0]->mailbox . '@' . $head->from[0]->host);
@@ -612,6 +613,35 @@ class Mailbox extends component
 	public function __destruct() {
 		$this->disconnect();
 	}
+
+    /**
+     * Get date time
+     * @param string $date
+     * @return false|string
+     */
+    public static function getDateTime($date)
+    {
+        $_date = time();
+
+        if (isset($date) && self::isValidDate($date)) {
+            $_date = strtotime(preg_replace('/\(.*?\)/', '', $date));
+        }
+
+        return date('Y-m-d H:i:s', $_date);
+    }
+
+    /**
+     * Check valid date time format
+     * @param string $date
+     * @param string $format
+     * @return bool
+     */
+    public static function isValidDate($date, $format = 'Y-m-d H:i:s')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+
+        return $d && $d->format($format) === $date;
+    }
 }
 
 class Exception extends \Exception {

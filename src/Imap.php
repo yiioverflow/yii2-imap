@@ -29,7 +29,8 @@ use yii\base\InvalidConfigException;
  *             'imapPath' => '{imap.gmail.com:993/imap/ssl}INBOX',
  *             'imapLogin' => 'username',
  *             'imapPassword' => 'password',
- *             'serverEncoding'=>'encoding', // utf-8 default.
+ *             'serverEncoding' => 'encoding', // utf-8 default.
+ *             'searchEncoding' => 'encoding',//MIME character set to use when searching strings
  *             'decodeMimeStr' => false // Return as is, default -> true
  *         ],
  *     ],
@@ -79,8 +80,10 @@ class Imap extends Mailbox
         $this->attachmentsDir = $this->_connection['attachmentsDir'];
         //Optional decoding of the MIME-string
         if (isset($this->_connection['decodeMimeStr'])) {
-	        $this->decodeMimeStr = $this->_connection['decodeMimeStr'];
+            $this->decodeMimeStr = $this->_connection['decodeMimeStr'];
         }
+        //MIME character set to use when searching strings
+        $this->searchEncoding = $this->_connection['searchEncoding'] ?? $this->_connection['serverEncoding'];
 
         if ($this->attachmentsDir) {
             if (!is_dir($this->attachmentsDir)) {

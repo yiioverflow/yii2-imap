@@ -21,6 +21,13 @@ class Mailbox extends component
 	protected $serverEncoding;
 	protected $attachmentsDir;
 	protected $decodeMimeStr = true;
+    /**
+     * MIME character set to use when searching strings.
+     * If not specified, the $serverEncoding setting will be used.
+     * @see https://www.php.net/manual/en/function.imap-search.php
+     * @var string $searchEncoding
+     */
+    protected $searchEncoding;
 
     /**
      * Set custom connection arguments of imap_open method. See http://php.net/imap_open
@@ -128,44 +135,46 @@ class Mailbox extends component
 	}
 
 
-	/**
-	 * This function performs a search on the mailbox currently opened in the given IMAP stream.
-	 * For example, to match all unanswered mails sent by Mom, you'd use: "UNANSWERED FROM mom".
-	 * Searches appear to be case insensitive. This list of criteria is from a reading of the UW
-	 * c-client source code and may be incomplete or inaccurate (see also RFC2060, section 6.4.4).
-	 *
-	 * @param string $criteria String, delimited by spaces, in which the following keywords are allowed. Any multi-word arguments (e.g. FROM "joey smith") must be quoted. Results will match all criteria entries.
-	 *    ALL - return all mails matching the rest of the criteria
-	 *    ANSWERED - match mails with the \\ANSWERED flag set
-	 *    BCC "string" - match mails with "string" in the Bcc: field
-	 *    BEFORE "date" - match mails with Date: before "date"
-	 *    BODY "string" - match mails with "string" in the body of the mail
-	 *    CC "string" - match mails with "string" in the Cc: field
-	 *    DELETED - match deleted mails
-	 *    FLAGGED - match mails with the \\FLAGGED (sometimes referred to as Important or Urgent) flag set
-	 *    FROM "string" - match mails with "string" in the From: field
-	 *    KEYWORD "string" - match mails with "string" as a keyword
-	 *    NEW - match new mails
-	 *    OLD - match old mails
-	 *    ON "date" - match mails with Date: matching "date"
-	 *    RECENT - match mails with the \\RECENT flag set
-	 *    SEEN - match mails that have been read (the \\SEEN flag is set)
-	 *    SINCE "date" - match mails with Date: after "date"
-	 *    SUBJECT "string" - match mails with "string" in the Subject:
-	 *    TEXT "string" - match mails with text "string"
-	 *    TO "string" - match mails with "string" in the To:
-	 *    UNANSWERED - match mails that have not been answered
-	 *    UNDELETED - match mails that are not deleted
-	 *    UNFLAGGED - match mails that are not flagged
-	 *    UNKEYWORD "string" - match mails that do not have the keyword "string"
-	 *    UNSEEN - match mails which have not been read yet
-	 *
-	 * @return array Mails ids
-	 */
-	public function searchMailbox($criteria = 'ALL') {
-		$mailsIds = imap_search($this->getImapStream(), $criteria, SE_UID, $this->serverEncoding);
-		return $mailsIds ? $mailsIds : array();
-	}
+    /**
+     * This function performs a search on the mailbox currently opened in the given IMAP stream.
+     * For example, to match all unanswered mails sent by Mom, you'd use: "UNANSWERED FROM mom".
+     * Searches appear to be case insensitive. This list of criteria is from a reading of the UW
+     * c-client source code and may be incomplete or inaccurate (see also RFC2060, section 6.4.4).
+     *
+     * @param string $criteria String, delimited by spaces, in which the following keywords are allowed. Any multi-word arguments (e.g. FROM "joey smith") must be quoted. Results will match all criteria entries.
+     *    ALL - return all mails matching the rest of the criteria
+     *    ANSWERED - match mails with the \\ANSWERED flag set
+     *    BCC "string" - match mails with "string" in the Bcc: field
+     *    BEFORE "date" - match mails with Date: before "date"
+     *    BODY "string" - match mails with "string" in the body of the mail
+     *    CC "string" - match mails with "string" in the Cc: field
+     *    DELETED - match deleted mails
+     *    FLAGGED - match mails with the \\FLAGGED (sometimes referred to as Important or Urgent) flag set
+     *    FROM "string" - match mails with "string" in the From: field
+     *    KEYWORD "string" - match mails with "string" as a keyword
+     *    NEW - match new mails
+     *    OLD - match old mails
+     *    ON "date" - match mails with Date: matching "date"
+     *    RECENT - match mails with the \\RECENT flag set
+     *    SEEN - match mails that have been read (the \\SEEN flag is set)
+     *    SINCE "date" - match mails with Date: after "date"
+     *    SUBJECT "string" - match mails with "string" in the Subject:
+     *    TEXT "string" - match mails with text "string"
+     *    TO "string" - match mails with "string" in the To:
+     *    UNANSWERED - match mails that have not been answered
+     *    UNDELETED - match mails that are not deleted
+     *    UNFLAGGED - match mails that are not flagged
+     *    UNKEYWORD "string" - match mails that do not have the keyword "string"
+     *    UNSEEN - match mails which have not been read yet
+     *
+     * @return array Mails ids
+     */
+    public function searchMailbox($criteria = 'ALL')
+    {
+        $mailsIds = imap_search($this->getImapStream(), $criteria, SE_UID, $this->searchEncoding);
+
+        return $mailsIds ? $mailsIds : array();
+    }
 
 	/**
 	 * Save mail body.

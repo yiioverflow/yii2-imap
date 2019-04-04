@@ -23,15 +23,16 @@ $ composer require roopz/yii2-imap "dev-master"
 
 ```php
 'imap' => [
-	'class' => '',
-	'connection' => [
-		'imapPath' => '',
-		'imapLogin' => '',
-		'imapPassword' => '',
-		'serverEncoding' => 'utf-8',
-		'attachmentsDir' => '/tmp',
-		'decodeMimeStr' => false
-	]
+    'class' => '',
+    'connection' => [
+        'imapPath' => '',
+        'imapLogin' => '',
+        'imapPassword' => '',
+        'serverEncoding' => 'utf-8',
+        'searchEncoding' => 'US-ASCII',//MIME character set to use when searching strings. Not mandatory
+        'attachmentsDir' => '/tmp',
+        'decodeMimeStr' => false
+    ]
 ]
 ```
 

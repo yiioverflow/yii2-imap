@@ -551,29 +551,30 @@ class Mailbox extends component
 		}
 	}
 
-	/**
-	 * @param $string
-	 * @param string $charset
-	 * @return string
-	 */
-	protected function decodeMimeStr($string, $charset = 'utf-8')
-	{
-		$newString = '';
-		$elements = imap_mime_header_decode($string);
+    /**
+     * Decodes MIME message header extensions that are non ASCII text
+     * @param string $string The MIME text
+     * @param string $charset
+     * @return string
+     */
+    protected function decodeMimeStr($string, $charset = 'utf-8')
+    {
+        $newString = '';
+        $elements = imap_mime_header_decode($string);
 
-		for ($i = 0; $i < count($elements); $i++) {
-			if ($this->decodeMimeStr) {
-				if ($elements[$i]->charset == 'default') {
-					$elements[$i]->charset = 'iso-8859-1';
-				}
-				$newString .= $this->convertStringEncoding($elements[$i]->text, $elements[$i]->charset, $charset);
-			} else {
-				$newString .= $elements[$i]->text;
-			}
-		}
+        foreach ($elements as $item) {
+            if ($this->decodeMimeStr) {
+                if ($item->charset === 'default') {
+                    $item->charset = 'iso-8859-1';
+                }
+                $newString .= $this->convertStringEncoding($item->text, $item->charset, $charset);
+            } else {
+                $newString .= $item->text;
+            }
+        }
 
-		return $newString;
-	}
+        return $newString;
+    }
 
 	function isUrlEncoded($string) {
 		$hasInvalidChars = preg_match( '#[^%a-zA-Z0-9\-_\.\+]#', $string );

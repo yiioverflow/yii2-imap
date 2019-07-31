@@ -411,7 +411,7 @@ class Mailbox extends component
 
 		$mail = new IncomingMail();
 		$mail->id = $mailId;
-        $mail->date = self::getDateTime($head->date);
+		$mail->date = isset($head->date) ? self::getDateTime($head->date) : null;
 		$mail->subject = isset($head->subject) ? $this->decodeMimeStr($head->subject, $this->serverEncoding) : null;
 		$mail->fromName = isset($head->from[0]->personal) ? $this->decodeMimeStr($head->from[0]->personal, $this->serverEncoding) : null;
 		$mail->fromAddress = strtolower($head->from[0]->mailbox . '@' . $head->from[0]->host);
@@ -624,7 +624,7 @@ class Mailbox extends component
     {
         $_date = time();
 
-        if (isset($date) && self::isValidDate($date)) {
+        if (self::isValidDate($date)) {
             $_date = strtotime(preg_replace('/\(.*?\)/', '', $date));
         }
 

@@ -10,9 +10,10 @@ Installation by composer
        "roopz/yii2-imap": "dev-master"
     }
 }
+```
 
 Or
-
+```
 $ composer require roopz/yii2-imap "dev-master"
 ```
 

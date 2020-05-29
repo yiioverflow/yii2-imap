@@ -1,3 +1,5 @@
+Authour of Yii2-Imap is looking for a full-time job (Remote). More about my profile - http://roopz.club
+
 yii2 Imap
 ==========
 This library can be used to read mails from IMAP server using PHP and Yii2.
@@ -37,8 +39,7 @@ $ composer require roopz/yii2-imap "dev-master"
 ]
 ```
 
-# Donate
-[Send me a beer] (https://donorbox.org/yii2-imap)
+#Authour of Yii2-Imap is looking for a full-time job (Remote). More about my profile - [Click here](http://roopz.club)
 
 # Contribute
 Feel free to contribute. If you have ideas for examples, add them to the repo and send in a pull request.

@@ -19,9 +19,6 @@ Or
 $ composer require roopz/yii2-imap "dev-master"
 ```
 
-# Documentation
-[Documentation, Usage and Demo](https://yiioverflow.com/yii2-imap/)
-
 ### Config example
 
 ```php
@@ -39,7 +36,7 @@ $ composer require roopz/yii2-imap "dev-master"
 ]
 ```
 
-#Authour of Yii2-Imap is looking for a full-time job (Remote). More about my profile - [Click here](http://roopz.club)
+#Authour of Yii2-Imap is looking for a full-time job (Remote). More about my profile - [Click here](https://roopz.club)
 
 # Contribute
 Feel free to contribute. If you have ideas for examples, add them to the repo and send in a pull request.

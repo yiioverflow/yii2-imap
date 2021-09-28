@@ -1,10 +1,10 @@
 {
-    "name": "roopz/yii2-imap",
+    "name": "evgynybutenko/yii2-imap",
     "minimum-stability": "dev",
     "prefer-stable": "true",
     "description": "yii2 extension to read and process mails from IMAP and PHP",
     "keywords": ["yii2", "extension", "widget", "imap", "cron", "mail", "inbox"],
-    "homepage": "https://github.com/yiioverflow/yii2-imap.git",
+    "homepage": "https://github.com/evgynybutenko/yii2-imap.git",
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "authors": [

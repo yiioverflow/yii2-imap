@@ -8,7 +8,6 @@ namespace roopz\imap;
 */
 
 class IncomingMail {
-
 	public $id;
 	public $date;
 	public $subject;
@@ -56,11 +55,4 @@ class IncomingMail {
 		}
 		return $fetchedHtml;
 	}
-}
-
-class IncomingMailAttachment {
-
-	public $id;
-	public $name;
-	public $filePath;
 }

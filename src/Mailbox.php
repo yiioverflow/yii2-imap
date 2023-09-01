@@ -602,7 +602,7 @@ class Mailbox extends component
 	 */
 	protected function convertStringEncoding($string, $fromEncoding, $toEncoding) {
 		$convertedString = null;
-		if($string && $fromEncoding != $toEncoding) {
+		if($string && !empty($toEncoding) && $fromEncoding != $toEncoding) {
 			$convertedString = @iconv($fromEncoding, $toEncoding . '//IGNORE', $string);
 			if(!$convertedString && extension_loaded('mbstring')) {
 				$convertedString = @mb_convert_encoding($string, $toEncoding, $fromEncoding);
